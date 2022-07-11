@@ -31,7 +31,7 @@ class DroneRaceEnv(gym.Env):
             self.action_space = spaces.Box(-1.0, 1.0, np.array([4, ]), dtype=np.float32)
         else:
             self.action_space = spaces.Discrete(9)
-        self.observation_space = spaces.Box(-1.0, 1.0, np.array([20, ]), dtype=np.float64)
+        self.observation_space = spaces.Box(-1.0, 1.0, np.array([10, ]), dtype=np.float64)
 
     def _next_obs(self, uav, goal):
         obs = np.zeros(self.observation_space.shape[0])
@@ -59,7 +59,7 @@ class DroneRaceEnv(gym.Env):
         reward = 0
         target_distance = np.linalg.norm(self.uav.position - self.goal)
         if target_distance < 50:
-            reward += (2000 - self.current_step) / 2000
+            reward += 1
             self.end = True
         reward += -target_distance * 1e-7
         return reward
